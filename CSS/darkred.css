@@ -1,0 +1,72 @@
+
+/*
+Several tints of blue :D
+*/
+p,label {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: x-large;
+    color: rgb(235, 190, 190);
+}
+h1,h2 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /*color: rgb(158, 143, 207);*/
+    color: rgb(235, 170, 170);
+    /*text-align: center;*/
+}
+button {
+    font-size: 200%;
+    height: 40px;
+    margin: 4px;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    background-color: rgb(75,50, 50);
+    color: rgb(250, 197, 197);
+    border-style: hidden;
+    bottom: 10px;
+}
+button:hover {
+    background-color:rgb(240,190,152)
+}
+body {
+    background-color: rgb(25,15,15);
+    margin: 3%;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    color: rgb(250, 177, 177);
+    text-align: center;
+}
+a {
+    font-size: 150%;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    color: rgb(250, 177, 177);
+}
+a:hover {
+    color: rgb(209, 154, 154);
+}
+input{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /*color: rgb(110,157,113);*/
+    background-color: rgb(190, 117, 117);
+}
+.idk {
+   background-color: rgb(55, 30, 30);
+}
+.main_input {
+    border-style: double;
+}
+/*
+Meant to be smaller than other buttons
+*/
+.util_button {
+    font-size: 150%;
+    height: fit-content;
+}
+.important_button {
+    color: maroon;
+    background-color:tomato;
+}
+.important_button:hover {
+    background-color: crimson;
+}

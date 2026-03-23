@@ -7,7 +7,7 @@ const default_title = "New Page";
 const default_content = "New content";
 var MAX_PAGES = 5;
 
-const css = ["mocha.css", "deepblue.css", "pink.css"];
+const css = ["darkblue.css","darkred.css","darkgreen.css","mocha.css", "lavender.css", "pink.css"];
 var css_index = 0;
 
 
@@ -19,7 +19,7 @@ function check() {
 }
 function cssChange() {
     css_index++;
-    css_index %= 3;
+    css_index %= css.length;
     document.getElementById("css_thing").href = "CSS/" + css[css_index];
 }
 /*
