@@ -2,17 +2,17 @@
 <html lang = "en">
 <head>
     <title>Task Tracker</title>
-    <link rel="stylesheet" href="CSS/darkblue.css" id="css_thing">
+    <link rel="stylesheet" href="CSS/master.css" id="css_thing">
     <link rel = "icon" type="image/x-icon" href="./Assets/smiley.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body> 
+<body class = "darkblue" id = all> 
     <!-- onbeforeunload = "return check();" -->
     <h2 style = "text-align: center;">knock-off google docs for saving stuff</h2>
     <div id="menu" class = "idk">
         <div style = "margin:3%">
             <br>
-            <h2>Select A Page To Begin!</h2>
+            <h2>Select A Page!</h2>
             <div id = "buttons"></div>
             <br>
         </div>
@@ -33,7 +33,8 @@
             <button id="save" onclick="save();">Save page</button>
             <div>
                 <button onclick = "addList()" class = "util_button">Add List</button>
-                <button onclick = "cssChange()" class = "util_button">Change CSS</button>
+                <button onclick = "cssChange()" class = "util_button">Change Colors</button>
+                <button onclick = "darkShift()" class = "util_button">Dark/Light Mode</button>
                 <button id = "reset" onclick="resetPage();" class = "important_button util_button">Reset page</button> 
                 <br>
             </div>

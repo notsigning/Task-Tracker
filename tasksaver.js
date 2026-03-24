@@ -6,8 +6,9 @@ const titleElem = document.getElementById("title");
 const default_title = "New Page";
 const default_content = "New content";
 var MAX_PAGES = 5;
-
-const css = ["darkblue.css","darkred.css","darkgreen.css","mocha.css", "lavender.css", "pink.css"];
+var darkmode = true;
+const css_dark = ["darkblue", "darkred", "darkgreen"];
+const css_light = ["lavender", "pink", "mocha"];
 var css_index = 0;
 
 
@@ -17,10 +18,17 @@ function check() {
         return confirm("Unsaved changes! Continue?");
     } else return true;
 }
+function darkShift() {
+  darkmode = !darkmode;
+  if (darkmode) document.body.className = css_dark[css_index];
+  else document.body.className = css_light[css_index];
+}
 function cssChange() {
     css_index++;
-    css_index %= css.length;
-    document.getElementById("css_thing").href = "CSS/" + css[css_index];
+    css_index %= css_dark.length;
+    //document.getElementById("css_thing").href = "CSS/" + css[css_index];
+  if (darkmode) document.body.className = css_dark[css_index];
+  else document.body.className = css_light[css_index];
 }
 /*
 Updates display without modifying page numbers/count.
