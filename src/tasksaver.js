@@ -73,9 +73,7 @@ function shift(i) {
         } else if (index + i >= MAX_PAGES) {
             if (confirm("Create new page?")) {
                 index += i;
-                console.log(MAX_PAGES);
                 MAX_PAGES = parseInt(MAX_PAGES) + 1;
-                console.log(MAX_PAGES);
             }
         } else {
             index += i;
@@ -107,7 +105,6 @@ function resetPage() {
 Adds a list into the content container.
 */
 function addList() {
-    console.log("List added");
     displayElem.innerHTML += "<ul><li>Sample Item</li></ul>";
 }
 /*
@@ -146,10 +143,31 @@ function swapPages(page_index) {
     update();
   }
 }
+//Add a button to the menu
+function addMenuButton(num) {
+  buttons.push(document.createElement("button"));
+  buttons[num].id = num;
+  const title = localStorage.getItem("title" + num);
+  if (title) {
+    buttons[num].innerText = num + 1 + ": " + title;
+  }
+  else {
+    buttons[num].innerText = num + 1 + ": New Page";
+  }
+  buttons[num].addEventListener("click", (event) => {
+      index = parseInt(event.target.id);
+      document.getElementById("menu").hidden = true;
+      document.getElementById("main").hidden = false;
+      load();
+  });
+  menu.appendChild(buttons[num]);
+  let newline = document.createElement('br');
+  menu.appendChild(newline);
+}
+
 //Initialize Keybinds
 document.addEventListener("keydown", (event) => {
     if (event.key === "s" && (event.ctrlKey || event.metaKey)) {
-        console.log("Save shortcut triggered");
         save();
         event.preventDefault(); //prevent saving current page
     }
@@ -169,24 +187,7 @@ else MAX_PAGES = 5;
 const menu = document.getElementById("buttons")
 var buttons = [];
 for (var i = 0; i < MAX_PAGES; i++) {
-  buttons.push(document.createElement("button"));
-  buttons[i].id = i;
-  const title = localStorage.getItem("title" + i);
-  if (title) {
-    buttons[i].innerText = i + 1 + ": " + title;
-  }
-  else {
-    buttons[i].innerText = i + 1 + ": New Page";
-  }
-  buttons[i].addEventListener("click", (event) => {
-    index = parseInt(event.target.id);
-    document.getElementById("menu").hidden = true;
-    document.getElementById("main").hidden = false;
-    load();
-  });
-  menu.appendChild(buttons[i]);
-  let newline = document.createElement('br');
-  menu.appendChild(newline);
+  addMenuButton(i);
 }
 //Display menu on start.
 showMenu();
