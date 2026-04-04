@@ -1,6 +1,6 @@
-var index = 0;
-var file = "page" + index;
-var title = "title" + index;
+var currPage = 0;
+var file = "page" + currPage;
+var title = "title" + currPage;
 const displayElem = document.getElementById("displaybox");
 const titleElem = document.getElementById("title");
 const default_title = "New Page";
@@ -34,8 +34,8 @@ function cssChange() {
 Updates display without modifying page numbers/count.
 */
 function update() {
-  file = "page" + index;
-  title = "title" + index;
+  file = "page" + currPage;
+  title = "title" + currPage;
   const content = localStorage.getItem(file);
   const titlecontent = localStorage.getItem(title);
   if (content != null) {
@@ -48,14 +48,14 @@ function update() {
   } else {
       titleElem.innerHTML = default_title;
   }
-  document.getElementById("header").innerHTML = "Page: " + (index + 1);
+  document.getElementById("header").innerHTML = "Page: " + (currPage + 1);
 }
 /*
 Loads Content from localStorage & updates display.
 */
 function load() {
     //update page
-    //console.log("Going to page " + (index+1));
+    //console.log("Going to page " + (currPage+1));
     const page_temp = localStorage.getItem("MAX_PAGES");
     if (page_temp != null) {
         MAX_PAGES = page_temp;
@@ -68,15 +68,15 @@ Shifts a page a certain number of times.
 */
 function shift(i) {
     if (check()) {
-        if (index + i < 0) { //loop back
-            index = MAX_PAGES - 1;
-        } else if (index + i >= MAX_PAGES) {
+        if (currPage + i < 0) { //loop back
+            currPage = MAX_PAGES - 1;
+        } else if (currPage + i >= MAX_PAGES) {
             if (confirm("Create new page?")) {
-                index += i;
+                currPage += i;
                 MAX_PAGES = parseInt(MAX_PAGES) + 1;
             }
         } else {
-            index += i;
+            currPage += i;
         }
         update();
         document.getElementById("savemsg").innerHTML = "";
@@ -108,40 +108,62 @@ function addList() {
     displayElem.innerHTML += "<ul><li>Sample Item</li></ul>";
 }
 /*
-Display the menu interface.
+Basically an update() function for the menu interface
 */
-function showMenu() {
+function updateMenu() {
   for (let i = 0; i < MAX_PAGES; i++) {
     const title = localStorage.getItem("title" + i);
     if (title) {
       buttons[i].innerText = i + 1 + ": " + title;
     }
   }
+}
+/*
+Display the menu interface.
+*/
+function showMenu() {
+  updateMenu();
   document.getElementById("menu").hidden = false;
   document.getElementById("main").hidden = true;
 }
+
 /*
-Saves, then swaps the content of two pages. Note to not use zero-based indexing while calling this function.
+Swap Functions (No interface but usable with browser consoles)
+NOTE: Do not use zero-based indexing while calling this function.
 */
-function swapPages(page_index) {
-  
-  page_index--;
-  let page_title = localStorage.getItem("title" + page_index);
-  let page_content = localStorage.getItem("page" + page_index);
-  if(!page_title || !page_content){
-    alert("Error in swapping: Other page has nothing saved.")
-  }
-  else if (document.getElementById("main").hidden) {
+
+/*
+Swaps the content of a given page and the current page. 
+*/
+function swapCurrPage(page_index) {
+  if (document.getElementById("main").hidden) {
     alert("Please select a page before swapping.")
   }
   else {
+    swapPages(currPage + 1,page_index);
+  }
+}
+/*
+Swaps two pages given their indices
+*/
+function swapPages(index1, index2) {
+  index1--; index2--;
+  let title1 = localStorage.getItem("title" + index1);
+  let content1 = localStorage.getItem("page" + index1);
+  let title2 = localStorage.getItem("title" + index2);
+  let content2 = localStorage.getItem("page" + index2);
+  if (!title1 || !content1 || !title2 || !content2) {
+    alert("Error in swapping: Other page has nothing saved.")
+  }
+  else {
     save();
-    localStorage.setItem("title" + page_index, titleElem.innerHTML);
-    localStorage.setItem("page" + page_index, displayElem.innerHTML);
-    localStorage.setItem(file, page_content);
-    localStorage.setItem(title, page_title);
+    localStorage.setItem("title" + index2, title1);
+    localStorage.setItem("page" + index2, content1);
+    localStorage.setItem("title" + index1, title2);
+    localStorage.setItem("page" + index1, content2);
     update();
   }
+  updateMenu();
 }
 //Add a button to the menu
 function addMenuButton(num) {
@@ -155,11 +177,12 @@ function addMenuButton(num) {
     buttons[num].innerText = num + 1 + ": New Page";
   }
   buttons[num].addEventListener("click", (event) => {
-      index = parseInt(event.target.id);
+      currPage = parseInt(event.target.id);
       document.getElementById("menu").hidden = true;
       document.getElementById("main").hidden = false;
       load();
   });
+  buttons[num].className = "main_button";
   menu.appendChild(buttons[num]);
   let newline = document.createElement('br');
   menu.appendChild(newline);
@@ -175,7 +198,7 @@ document.addEventListener("keydown", (event) => {
 //Filter index parameter
 const params = new URLSearchParams(window.location.search);
 if (params.get('index')) {
-    index = parseInt(params.get('index'));
+    currPage = parseInt(params.get('index'));
 }
 //load initial number of pages
 const page_temp = localStorage.getItem("MAX_PAGES");

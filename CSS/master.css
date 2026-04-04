@@ -64,9 +64,14 @@ Classes
 /*
 Everything Else
 */
-p,label,li {
+p,li {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: x-large;
+    color: var(--text);
+}
+label {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: large;
     color: var(--text);
 }
 h1,h2 {
@@ -76,7 +81,7 @@ h1,h2 {
     /*text-align: center;*/
 }
 button {
-    font-size: 200%;
+    font-size: 150%;
     height: 40px;
     margin: 4px;
     font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
@@ -84,6 +89,7 @@ button {
     color: var(--button-text);
     border-style: hidden;
     bottom: 10px;
+    height: fit-content;
 }
 button:hover {
     background-color: var(--hover);
@@ -111,6 +117,7 @@ input{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     /*color: rgb(110,157,113);*/
     background-color: var(--accent);
+    color: var(--other-text)
 }
 .idk {
    background-color: var(--menu_space);
@@ -119,11 +126,10 @@ input{
     border-style: double;
 }
 /*
-Meant to be smaller than other buttons
+Other buttons
 */
-.util_button {
-    font-size: 150%;
-    height: fit-content;
+.main_button {
+    font-size: 200%; 
 }
 .important_button {
     color: maroon;
