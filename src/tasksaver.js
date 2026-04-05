@@ -11,6 +11,11 @@ const css_dark = ["darkblue", "darkred", "darkgreen"];
 const css_light = ["lavender", "pink", "mocha"];
 var css_index = 0;
 
+/*
+
+FUNCTIONS
+
+*/
 
 function check() {
     if (displayElem.innerHTML == default_content && titleElem.innerHTML == default_title) return true;
@@ -188,6 +193,22 @@ function addMenuButton(num) {
   menu.appendChild(newline);
 }
 
+
+/*
+
+INITIALIZATION
+
+*/
+
+
+// Test if settings are available, and load them
+const imported_settings = localStorage.getItem("settings")
+if (imported_settings) {
+  document.getElementById("page_title").innerText = imported_settings.substring(0, imported_settings.search(","));
+  //document.body.className()
+}
+
+
 //Initialize Keybinds
 document.addEventListener("keydown", (event) => {
     if (event.key === "s" && (event.ctrlKey || event.metaKey)) {
@@ -195,17 +216,23 @@ document.addEventListener("keydown", (event) => {
         event.preventDefault(); //prevent saving current page
     }
 });
+
+
 //Filter index parameter
 const params = new URLSearchParams(window.location.search);
 if (params.get('index')) {
     currPage = parseInt(params.get('index'));
 }
+
+
 //load initial number of pages
 const page_temp = localStorage.getItem("MAX_PAGES");
 if (page_temp != null) {
     MAX_PAGES = page_temp;
 }
 else MAX_PAGES = 5;
+
+
 //Add buttons to menu
 const menu = document.getElementById("buttons")
 var buttons = [];
